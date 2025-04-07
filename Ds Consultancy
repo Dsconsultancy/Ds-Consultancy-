@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DS Consultancy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #f8f8f8;
+      padding: 20px;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #0077cc;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #0077cc;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .contact-form button {
+      background-color: #0077cc;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DS Consultancy</h1>
+    <p>Empowering Youth with Job Opportunities</p>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#opportunities">Opportunities</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>  <section id="home">
+    <h2>Welcome to DS Consultancy</h2>
+    <p>We connect young talents to job opportunities and help them build strong careers.</p>
+  </section>  <section id="about">
+    <h2>About Us</h2>
+    <p>DS Consultancy is dedicated to helping youth find employment and unlock their potential. We guide job seekers with personalized support and connect them to top recruiters.</p>
+  </section>  <section id="services">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Job placement assistance</li>
+      <li>Resume writing support</li>
+      <li>Career counseling</li>
+      <li>Interview preparation</li>
+    </ul>
+  </section>  <section id="opportunities">
+    <h2>Job Opportunities</h2>
+    <p>Stay tuned! We are regularly updating our job listings for various roles and industries.</p>
+  </section>  <section id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-form">
+      <form action="#" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <p>Or reach out to us directly:</p>
+      <p>Email: <a href="mailto:dsconsultancy@example.com">dsconsultancy@example.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/1234567890" target="_blank">Chat with us</a></p>
+    </div>
+  </section>  <footer>
+    <p>&copy; 2025 DS Consultancy. All rights reserved.</p>
+  </footer>
+</body>
+</html>
