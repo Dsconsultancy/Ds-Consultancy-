@@ -1,73 +1,82 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS Consultancy</title>
-    <style>
-        body {
-            background-color: white;
-            color: #333;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #0066cc;
-        }
-        nav {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #0066cc;
-            font-weight: bold;
-        }
-        section {
-            margin-bottom: 40px;
-        }
-        h2 {
-            color: #004080;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login - DS Consultancy</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+    .login-container {
+      width: 300px; margin: 50px auto; background: white; padding: 20px;
+      border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%; padding: 10px; margin-top: 10px;
+      border: 1px solid #ccc; border-radius: 5px;
+    }
+    button {
+      background-color: #28a745; color: white; border: none;
+    }
+  </style>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
 </head>
 <body>
-    <header>DS Consultancy</header>
-    <nav>
-        <a href="#career">Career</a>
-        <a href="#guidance">Guidance</a>
-        <a href="#contact">Contact</a>
-    </nav>
+  <div class="login-container">
+    <h2>Admin Login</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p><a href="#" id="recoverLink">Forgot Password?</a></p>
+    <p id="message"></p>
+  </div>
 
-    <section id="career">
-        <h2>Career Opportunities</h2>
-        <p>We assist individuals in finding the right jobs based on their skills and interests. Below are the latest job listings:</p>
-        <ul>
-            <li>
-                <strong>CNC/VMC Operator</strong><br>
-                Experience: Fresher / 1+ Year<br>
-                Qualification: Diploma / ITI / Graduation / 10th / 12th<br>
-                <strong>Send resume on WhatsApp: 8874256902</strong>
-            </li>
-        </ul>
-    </section>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-    <section id="guidance">
-        <h2>Guidance</h2>
-        <p>Our team provides support and training for skill development to enhance your chances of employment.</p>
-    </section>
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: ashwanidhardwivediofficial@gmail.com</p>
-        <p>Phone: 8874256902</p>
-        <p>WhatsApp: 8874256902</p>
-        <p>Location: Siddharth Nagar, Uttar Pradesh</p>
-    </section>
+    const loginForm = document.getElementById('loginForm');
+    const message = document.getElementById('message');
+    const recoverLink = document.getElementById('recoverLink');
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          message.textContent = 'Login successful!';
+        })
+        .catch((error) => {
+          message.textContent = error.message;
+        });
+    });
+
+    recoverLink.addEventListener('click', () => {
+      const email = prompt('Enter your email to recover password:');
+      if (email) {
+        auth.sendPasswordResetEmail(email)
+          .then(() => {
+            alert('Password reset email sent!');
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
+      }
+    });
+  </script>
 </body>
 </html>
