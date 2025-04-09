@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DS Consultancy - Sign Up</title>
+  <script>
+    function toggleSignupMethod() {
+      const isPhone = document.getElementById("phoneOption").checked;
+      document.getElementById("emailFields").style.display = isPhone ? "none" : "block";
+      document.getElementById("phoneFields").style.display = isPhone ? "block" : "none";
+      document.getElementById("submitButton").innerText = isPhone ? "Sign Up with Phone" : "Sign Up with Email";
+    }
+  </script>
+</head>
+<body onload="toggleSignupMethod()">
+  <h1>DS Consultancy - Sign Up</h1>
+  <label><input type="radio" name="method" id="emailOption" value="email" onclick="toggleSignupMethod()">Email</label>
+  <label><input type="radio" name="method" id="phoneOption" value="phone" checked onclick="toggleSignupMethod()">Phone</label>
+
+  <form>
+    <div id="emailFields" style="display: none;">
+      <input type="email" placeholder="Email"><br>
+      <input type="password" placeholder="Password"><br>
+    </div>
+    <div id="phoneFields" style="display: none;">
+      <input type="tel" placeholder="Phone Number"><br>
+      <input type="text" placeholder="OTP"><br>
+    </div>
+    <button type="submit" id="submitButton">Sign Up</button>
+  </form>
+</body>
+</html>
