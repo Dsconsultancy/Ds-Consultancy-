@@ -2,79 +2,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DS Consultancy - Secure Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <title>DS Consultancy - Sign Up</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
 </head>
 <body>
   <h2>DS Consultancy - Sign Up</h2>
-  <div id="signup-options">
-    <input type="radio" name="method" value="email" checked>Email
-    <input type="radio" name="method" value="phone">Phone
-  </div>
-
-  <div id="email-signup">
-    <input type="email" id="email" placeholder="Email"><br>
-    <input type="password" id="password" placeholder="Password"><br>
+  <input type="radio" name="method" id="email" checked>Email
+  <input type="radio" name="method" id="phone">Phone<br><br>
+  <div id="emailDiv">
+    <input type="text" id="emailInput" placeholder="Email"><br>
+    <input type="password" id="passwordInput" placeholder="Password"><br>
     <button onclick="signUpWithEmail()">Sign Up with Email</button>
   </div>
-
-  <div id="phone-signup" style="display:none;">
-    <input type="text" id="phone" placeholder="+911234567890"><br>
-    <div id="recaptcha-container"></div>
+  <div id="phoneDiv" style="display:none;">
+    <input type="text" id="phoneInput" placeholder="Phone Number"><br>
     <button onclick="sendOTP()">Send OTP</button><br>
-    <input type="text" id="otp" placeholder="Enter OTP">
+    <input type="text" id="otpInput" placeholder="Enter OTP"><br>
     <button onclick="verifyOTP()">Verify OTP</button>
+    <div id="recaptcha-container"></div>
   </div>
-
   <script>
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyAnq8xsC...",
+      authDomain: "ds-consultancy-e62fb.firebaseapp.com",
+      projectId: "ds-consultancy-e62fb",
+      storageBucket: "ds-consultancy-e62fb.appspot.com",
+      messagingSenderId: "888142235207",
+      appId: "1:888142235207:web:8e1d60804bfac6001d5362",
+      measurementId: "G-WDZN..."
     };
+
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
+    document.getElementById('email').onclick = () => {
+      document.getElementById('emailDiv').style.display = 'block';
+      document.getElementById('phoneDiv').style.display = 'none';
+    };
+    document.getElementById('phone').onclick = () => {
+      document.getElementById('emailDiv').style.display = 'none';
+      document.getElementById('phoneDiv').style.display = 'block';
+    };
+
     function signUpWithEmail() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      const email = document.getElementById("emailInput").value;
+      const password = document.getElementById("passwordInput").value;
       auth.createUserWithEmailAndPassword(email, password)
-        .then(() => alert("Signup successful"))
+        .then(user => alert("Signed up successfully!"))
         .catch(error => alert(error.message));
     }
 
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      'size': 'normal',
+      'callback': response => console.log("reCAPTCHA solved")
+    });
+
     function sendOTP() {
-      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-        size: 'normal',
-        callback: () => {},
-      });
-      const phone = document.getElementById("phone").value;
-      auth.signInWithPhoneNumber(phone, window.recaptchaVerifier)
-        .then(result => {
-          window.confirmationResult = result;
-          alert("OTP sent");
+      const phoneNumber = "+91" + document.getElementById("phoneInput").value;
+      const appVerifier = window.recaptchaVerifier;
+      auth.signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then(confirmationResult => {
+          window.confirmationResult = confirmationResult;
+          alert("OTP sent!");
         })
-        .catch(err => alert(err.message));
+        .catch(error => alert(error.message));
     }
 
     function verifyOTP() {
-      const code = document.getElementById("otp").value;
+      const code = document.getElementById("otpInput").value;
       window.confirmationResult.confirm(code)
-        .then(() => alert("Phone verified"))
-        .catch(err => alert("Invalid OTP"));
+        .then(result => alert("Phone number verified!"))
+        .catch(error => alert(error.message));
     }
-
-    document.querySelectorAll('input[name="method"]').forEach(radio => {
-      radio.addEventListener("change", e => {
-        document.getElementById("email-signup").style.display = e.target.value === "email" ? "block" : "none";
-        document.getElementById("phone-signup").style.display = e.target.value === "phone" ? "block" : "none";
-      });
-    });
   </script>
 </body>
 </html>
